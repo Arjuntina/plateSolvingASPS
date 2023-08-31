@@ -7,12 +7,18 @@
 $pathToPlateSolverExe = 'C:\Program Files (x86)\PlateSolver\PlateSolver.exe'
 
 # The path to the folder with this script
-$pathToScriptFolder = 'C:\Users\nujra\OneDrive\Desktop\plateSolvingASPS+Stellarium'
+$pathToScriptFolder = 'C:\Users\nujra\OneDrive\Desktop\plateSolvingASPS'
 
 # The path to the folder with the images which will be used for analysis
 # By default, is located within an 'Images' folder within the script folder
 $pathToImagesFolder = $pathToScriptFolder + '\Images'
 
+# The path to the location of the Stellarium installation
+# Default location of stellarium ("C:\Program Files (x86)\Stellarium\stellarium.exe") is provided
+$pathToStellarium = 'C:\Program Files (x86)\Stellarium\stellarium.exe'
+
+# The path to the stellarium script
+# Should be the same location as the 
 
 # BEGINNING OF THE SCRIPT
 
@@ -120,9 +126,16 @@ if ($imageSolveSuccess)
     # writing the data from the generated output file to the terminal window
     Write-Host "RA - " $calculatedRA
     Write-Host "Dec - " $calculatedDec
-    Write-Host $FOVx,"' x ",$FOVy,"'"
+    Write-Host $FOVx,"' x ",$FOVy,"' y"
     Write-Host "Rotation - " $calculatedRotation
 
+   # Check if the process is already running
+    $isStellariumRunning = Get-Process -Name "stellarium" -ErrorAction SilentlyContinue
+
+    if ($isStellariumRunning -eq $null) {
+        # Start Stellarium if it's not already running
+        Start-Process -FilePath $pathToStellarium
+    } 
     
 }
 
