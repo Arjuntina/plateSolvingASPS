@@ -14,11 +14,12 @@ $pathToScriptFolder = 'C:\Users\nujra\OneDrive\Desktop\plateSolvingASPS'
 $pathToImagesFolder = $pathToScriptFolder + '\Images'
 
 # The path to the location of the Stellarium installation
-# Default location of stellarium ("C:\Program Files (x86)\Stellarium\stellarium.exe") is provided
-$pathToStellarium = 'C:\Program Files (x86)\Stellarium\stellarium.exe'
+# Default location of stellarium ("C:\Program Files\Stellarium\stellarium.exe") is provided
+$pathToStellarium = 'C:\Program Files\Stellarium\stellarium.exe'
 
 # The path to the stellarium script
-# Should be the same location as the 
+# Should be the same location as the Images folder
+$pathToStellariumScript = 'C:\Users\nujra\OneDrive\Desktop\plateSolvingASPS\StellariumScript.ssc'
 
 # BEGINNING OF THE SCRIPT
 
@@ -129,14 +130,17 @@ if ($imageSolveSuccess)
     Write-Host $FOVx,"' x ",$FOVy,"' y"
     Write-Host "Rotation - " $calculatedRotation
 
-   # Check if the process is already running
-    $isStellariumRunning = Get-Process -Name "stellarium" -ErrorAction SilentlyContinue
+    # Check if the process is already running
+    #$isStellariumRunning = Get-Process -Name "stellarium" -ErrorAction SilentlyContinue
 
-    if ($isStellariumRunning -eq $null) {
+    #if ($isStellariumRunning -eq $null) {
         # Start Stellarium if it's not already running
-        Start-Process -FilePath $pathToStellarium
-    } 
-    
+    #    Start-Process -FilePath $pathToStellarium
+    #}
+	
+	python .\pythonBridge.py
+
+    Start-Process $pathToStellariumScript
 }
 
 

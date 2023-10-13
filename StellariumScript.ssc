@@ -1,1 +1,24 @@
-core.moveToRaDec(0,90)
+#include <VecMath.hpp>
+
+// Parameters from plate solver
+RAOfPlateSolved=38.9162727504
+decOfPlateSolved=61.7699069196
+rotOfPlateSolved=176.75
+
+// Add the grid to Stellarium
+GridLinesMgr.setFlagEquatorGrid(true)
+
+// Add constellation lines to stellarium + change the constellation color
+ConstellationMgr.setFlagLines(true)
+ConstellationMgr.setLinesColor(Vec3f(1.0,1.0,1.0));
+
+
+// Focuses view on the calculated RA/Dec of stellarium
+core.moveToRaDec(RAOfPlateSolved,decOfPlateSolved)
+
+Oculars.toggleCCD()
+Oculars.setSelectedCCDRotationAngle(rotOfPlateSolved)
+
+
+
+
